@@ -11,12 +11,18 @@ const snackbar = ref({
   color: "",
   text: "",
 });
+const role = ref("Delivery Boy")
 const user = ref({
   firstName: "",
   lastName: "",
   email: "",
   password: "",
+  mobile: ""
 });
+
+const roleOptions =  [
+        "Admin","Clerk","Delivery Boy"
+      ]
 
 onMounted(async () => {
   if (localStorage.getItem("user") !== null) {
@@ -24,13 +30,21 @@ onMounted(async () => {
   }
 });
 
+const getRoleId = () => {
+  if(role.value === "Admin") return 1
+  if(role.value === "Clerk") return 2
+  return 3
+}
 
 async function createAccount() {
-  await UserServices.addUser(user.value)
-    .then(() => {
+  await UserServices.addUser({...user.value, role_id: getRoleId()})
+    .then((res) => {
       snackbar.value.value = true;
       snackbar.value.color = "green";
-      snackbar.value.text = "Account created successfully!";
+      if(res.data.is_verified == 0)
+        snackbar.value.text = "Account created successfully, Please contact Admin to verify your Account!";
+      else
+        snackbar.value.text = "Account created successfully!";
       router.push({ name: "login" });
     })
     .catch((error) => {
@@ -121,12 +135,22 @@ function closeSnackBar() {
               label="Email"
               required
             ></v-text-field>
-
+            <v-text-field
+              v-model="user.phoneNumber"
+              label="Mobile"
+              required
+            ></v-text-field>
             <v-text-field
               v-model="user.password"
               label="Password"
               required
             ></v-text-field>
+             <v-select
+                v-model="role"
+                label="Role"
+                :items="roleOptions"
+                required
+              ></v-select>
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
