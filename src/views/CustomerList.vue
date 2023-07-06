@@ -63,7 +63,7 @@ const deleteCustomer = async(id,index) => {
                     <th scope="col">Mobile</th>
                     <th scope="col">Street Number</th>
                     <th scope="col">Avenue</th>
-                    <th scope="col">Actions</th>
+                    <th scope="col">Operations</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -76,8 +76,8 @@ const deleteCustomer = async(id,index) => {
                     <td>Street {{ customer.streetNumber }}</td>
                     <td>Avenue {{ customer.avenue }}</td>
                     <td>
-                        <div class="btn-group" role="group" aria-label="Basic example">
-                        <a type="button" class="btn btn-secondary edit" :href="['/update-customer/'+customer.id]">Edit</a>
+                        <div class="btn-group" role="group">
+                        <a type="button" class="btn btn-secondary update" :href="['/courier-frontend/update-customer/'+customer.id]">Update</a>
                         <button type="button" class="btn btn-secondary delete" @click="deleteCustomer(customer.id,index)">Delete</button>
                         </div>         
                     </td>
@@ -118,7 +118,7 @@ const deleteCustomer = async(id,index) => {
     padding-top: -10px;
     color: #FFFFFF;
 }
-.edit {
+.update {
   background-color: #1E73BE;
   color: #FFFFFF;
 }

@@ -75,7 +75,7 @@ const deleteUser = async(id,index) => {
                     <td v-else>No</td>
                     <td>
                         <div class="btn-group" role="group" aria-label="Basic example">
-                        <a type="button" class="btn btn-secondary edit" :href="[ getDomainUrl()+'/update-user/'+user.id]">Edit</a>
+                        <a type="button" class="btn btn-secondary update" :href="[ getDomainUrl()+'/courier-frontend/update-user/'+user.id]">Update</a>
                         <button type="button" class="btn btn-secondary delete" @click="deleteUser(user.id,index)">Delete</button>
                         </div>         
                     </td>
@@ -110,7 +110,7 @@ const deleteUser = async(id,index) => {
     padding-top: -10px;
     color: #FFFFFF;
 }
-.edit {
+.update {
   background-color: #1E73BE;
   color: #FFFFFF;
 }

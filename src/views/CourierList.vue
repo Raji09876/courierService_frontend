@@ -76,7 +76,7 @@ const deleteCourier = async(id,index) => {
                     <th scope="col">Price of Courier</th>
                     <th scope="col">Distance</th>
                     <th scope="col">Status</th>
-                    <th scope="col" v-if="user.role_id != 3">Actions</th>
+                    <th scope="col" v-if="user.role_id != 3">Operations</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -92,8 +92,8 @@ const deleteCourier = async(id,index) => {
                     <td >{{ courier.distance }} Miles</td>
                     <td> {{ courier.status }} </td>
                     <td v-if="user.role_id != 3">
-                        <div class="btn-group" role="group" aria-label="Basic example">
-                        <a type="button" class="btn btn-secondary edit" :href="['/update-courier/'+courier.id]">Update</a>
+                        <div class="btn-group" role="group">
+                        <a type="button" class="btn btn-secondary update" :href="['/courier-frontend/update-courier/'+courier.id]">Update</a>
                         <button type="button" class="btn btn-secondary delete" @click="deleteCourier(courier.id,index)">Delete</button>
                         </div>         
                     </td>
@@ -140,7 +140,7 @@ const deleteCourier = async(id,index) => {
     padding-top: -10px;
     color: #FFFFFF;
 }
-.edit {
+.update {
   background-color: #1E73BE;
   color: #FFFFFF;
 }
