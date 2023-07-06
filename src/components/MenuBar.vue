@@ -73,8 +73,8 @@ const routes = {
     name: "Add customer"
     },
     {
-      path: "/couriers/clerkMe",
-      name: "Couriers placed by me"
+      path: "/couriers/",
+      name: "My Couriers"
     }
     ],
   3: [
@@ -87,8 +87,8 @@ const routes = {
     name: "Current Courier"
     },
     {
-      path: "/couriers/deliveredByMe",
-      name: "Couriers delivered by me"
+      path: "/couriers/",
+      name: "My Couriers"
     }
   ],
 }
