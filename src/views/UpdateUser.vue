@@ -4,7 +4,7 @@ import { ref, toRaw } from "vue";
 import { useRouter } from "vue-router";
 import UserServices from "../services/UserServices.js";
 import PageLoader from "../components/PageLoader.vue";
-import Snackbar from "../components/Snackbar.vue";
+import Alert from "../components/Alert.vue";
 import { getSnackBar } from "../utils"
 import TextBox from "../components/TextBox.vue"
 
@@ -128,7 +128,7 @@ async function updateUser() {
           <v-btn variant="flat" color="primary" @click="updateUser()">Update</v-btn>
         </v-card-actions>
       </v-card>
-      <Snackbar :snackbar="snackbar"/>
+      <Alert :snackbar="snackbar"/>
     </div>
   </v-container>
 </template>

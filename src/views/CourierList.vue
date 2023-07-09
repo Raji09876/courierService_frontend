@@ -4,7 +4,7 @@ import { useRouter } from "vue-router";
 import CourierServices from "../services/CourierServices.js";
 import { ref } from "vue";
 import PageLoader from "../components/PageLoader.vue";
-import Snackbar from "../components/Snackbar.vue";
+import Alert from "../components/Alert.vue";
 import { getSnackBar } from "../utils"
 
 
@@ -51,7 +51,15 @@ async function getCouriers() {
 }
 
 const deleteCourier = async(id,index) => {
-    // to do
+  await CourierServices.deleteCourier(id)
+    .then((res) => {
+      couriers.value.splice(index, 1);
+      snackbar.value = getSnackBar("Courier is deleted successfully!","green")
+    })
+    .catch((error) => {
+      console.log(error);
+      snackbar.value = getSnackBar(error.response.data.message)
+    });
 }
 </script>
 
@@ -106,7 +114,7 @@ const deleteCourier = async(id,index) => {
       
     </div>
   </div>
-  <Snackbar :snackbar="snackbar"/>
+  <Alert :snackbar="snackbar"/>
   <br/>
 </v-container>
 

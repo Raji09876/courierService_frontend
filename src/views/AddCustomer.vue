@@ -7,7 +7,7 @@ import CustomerServices from "../services/CustomerServices.js";
 import PageLoader from "../components/PageLoader.vue";
 import TextBox from "../components/TextBox.vue";
 import StreetAndAvenue from "../components/StreetAndAvenue.vue";
-import Snackbar from "../components/Snackbar.vue";
+import Alert from "../components/Alert.vue";
 import { getSnackBar } from "../utils";
 
 const router = useRouter();
@@ -90,7 +90,7 @@ async function addCustomer() {
           <v-btn variant="flat" color="primary" @click="addCustomer()">Create</v-btn>
         </v-card-actions>
       </v-card>
-      <Snackbar :snackbar="snackbar"/>
+      <Alert :snackbar="snackbar"/>
     </div>
   </v-container>
 </template>
