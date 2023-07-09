@@ -5,7 +5,7 @@ import { useRouter } from "vue-router";
 import UserServices from "../services/UserServices.js";
 import PageLoader from "../components/PageLoader.vue";
 import TextBox from "../components/TextBox.vue";
-import Snackbar from "../components/Snackbar.vue";
+import Alert from "../components/Alert.vue";
 import { getSnackBar } from "../utils";
 
 const router = useRouter();
@@ -109,7 +109,7 @@ async function addUser() {
           <v-btn variant="flat" color="primary" @click="addUser()">Create</v-btn>
         </v-card-actions>
       </v-card>
-      <Snackbar :snackbar="snackbar"/>
+      <Alert :snackbar="snackbar"/>
     </div>
   </v-container>
 </template>

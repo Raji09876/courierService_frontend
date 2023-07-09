@@ -2,11 +2,11 @@
 import { onMounted, watch } from "vue";
 import { ref, toRaw } from "vue";
 import { useRouter } from "vue-router";
-import CustomerDetails from "../components/CustomerDetails.vue";
+import CustomerLocation from "../components/CustomerLocation.vue";
 import { getSnackBar } from "../utils";
 import CustomerServices from "../services/CustomerServices.js";
 import TextBox from "../components/TextBox.vue";
-import Snackbar from "../components/Snackbar.vue";
+import Alert from "../components/Alert.vue";
 import CourierServices from "../services/CourierServices.js";
 import PageLoader from "../components/PageLoader.vue";
 
@@ -142,14 +142,14 @@ async function addCourier() {
               <option v-for="customer in customers" :key="customer.id" :value="customer"> {{customer.lastName}} {{customer.firstName}}</option>
             </select>
         </div>
-        <CustomerDetails :customer="pickupCustomerDetails" v-if="pickupCustomerDetails.id"/>
+        <CustomerLocation :customer="pickupCustomerDetails" v-if="pickupCustomerDetails.id"/>
         <div class="mb-3">
             <label for="user" class="form-label">Delivery Customer</label>
             <select class="form-control" id="dropdown" v-model="deliveryCustomerDetails">
               <option v-for="customer in customers" :key="customer.id" :value="customer"> {{customer.lastName}} {{customer.firstName}}</option>
             </select>
         </div>
-        <CustomerDetails :customer="deliveryCustomerDetails" v-if="deliveryCustomerDetails.id"/>
+        <CustomerLocation :customer="deliveryCustomerDetails" v-if="deliveryCustomerDetails.id"/>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
@@ -163,7 +163,7 @@ async function addCourier() {
           </v-card-actions><br/>
         </div>
       </v-card>
-      <Snackbar :snackbar="snackbar"/>
+      <Alert :snackbar="snackbar"/>
     </div>
   </v-container>
 </template>

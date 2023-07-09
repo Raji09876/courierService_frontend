@@ -5,7 +5,7 @@ import { useRouter } from "vue-router";
 import CustomerServices from "../services/CustomerServices.js";
 import CourierServices from "../services/CourierServices.js";
 import PageLoader from "../components/PageLoader.vue";
-import Snackbar from "../components/Snackbar.vue";
+import Alert from "../components/Alert.vue";
 import { getSnackBar } from "../utils"
 import TextBox from "../components/TextBox.vue";
 import UserServices from "../services/UserServices.js";
@@ -147,7 +147,7 @@ async function getAvailableDeliveryBoys() {
           <v-btn variant="flat" color="primary" @click="updateCourier()">Update</v-btn>
         </v-card-actions><br/>
       </v-card>
-      <Snackbar :snackbar="snackbar"/>
+      <Alert :snackbar="snackbar"/>
     </div>
   </v-container>
 </template>

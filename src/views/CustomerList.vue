@@ -4,7 +4,7 @@ import { useRouter } from "vue-router";
 import CustomerServices from "../services/CustomerServices.js";
 import { ref } from "vue";
 import PageLoader from "../components/PageLoader.vue";
-import Snackbar from "../components/Snackbar.vue";
+import Alert from "../components/Alert.vue";
 import { getSnackBar } from "../utils"
 
 
@@ -40,7 +40,15 @@ async function getCustomers() {
 }
 
 const deleteCustomer = async(id,index) => {
-    // to do
+  await CustomerServices.deleteCustomer(id)
+    .then((res) => {
+      customers.value.splice(index, 1);
+      snackbar.value = getSnackBar("Customer is deleted successfully!","green")
+    })
+    .catch((error) => {
+      console.log(error);
+      snackbar.value = getSnackBar(error.response.data.message)
+    });
 }
 </script>
 
@@ -89,7 +97,7 @@ const deleteCustomer = async(id,index) => {
       <h4 class="text-primary">No Customers are available</h4> 
     </div>
     </div>
-    <Snackbar :snackbar="snackbar"/>
+    <Alert :snackbar="snackbar"/>
   <br/>
 </v-container>
 

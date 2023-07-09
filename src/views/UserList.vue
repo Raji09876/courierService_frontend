@@ -5,7 +5,7 @@ import UserServices from "../services/UserServices.js";
 import { ref } from "vue";
 import PageLoader from "../components/PageLoader.vue";
 import { getDomainUrl } from "../utils"
-import Snackbar from "../components/Snackbar.vue";
+import Alert from "../components/Alert.vue";
 import { getSnackBar } from "../utils"
 
 const users = ref([]);
@@ -38,7 +38,15 @@ async function getUsers() {
     });
 }
 const deleteUser = async(id,index) => {
-    //to do
+  await UserServices.deleteUser(id)
+    .then((res) => {
+      users.value.splice(index, 1);
+      snackbar.value = getSnackBar("User is deleted successfully!","green")
+    })
+    .catch((error) => {
+      console.log(error);
+      snackbar.value = getSnackBar(error.response.data.message)
+    });
 }
 
 </script>
@@ -88,7 +96,7 @@ const deleteUser = async(id,index) => {
       
     </div>
     </div>
-    <Snackbar :snackbar="snackbar"/>
+    <Alert :snackbar="snackbar"/>
   <br/>
 </v-container>
 
