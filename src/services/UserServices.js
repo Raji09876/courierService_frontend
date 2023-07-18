@@ -28,7 +28,7 @@ export default {
   logoutUser() {
     return apiClient.post("logout");
   },
-  getAvailableDeliveryBoys(){
+  getAvailableCourierBoys(){
     return apiClient.get("users/available-delivery-boys");
   },
   getUsers() {
