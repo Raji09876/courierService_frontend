@@ -6,10 +6,10 @@ import { ref } from "vue";
 import PageLoader from "../components/PageLoader.vue";
 import { getDomainUrl } from "../utils"
 import Alert from "../components/Alert.vue";
-import { getSnackBar } from "../utils"
+import { updateAlert } from "../utils"
 
 const users = ref([]);
-const spinner = ref(true);
+const loader = ref(true);
 const user = ref(null);
 const router = useRouter();
 const backup = ref([])
@@ -24,7 +24,7 @@ onMounted(async () => {
     router.push({ name: "login" });
   }
   await getUsers();
-  spinner.value = false;
+  loader.value = false;
 });
 
 async function getUsers() {
@@ -41,11 +41,11 @@ const deleteUser = async(id,index) => {
   await UserServices.deleteUser(id)
     .then((res) => {
       users.value.splice(index, 1);
-      snackbar.value = getSnackBar("User is deleted successfully!","green")
+      snackbar.value = updateAlert("User is deleted successfully!","green")
     })
     .catch((error) => {
       console.log(error);
-      snackbar.value = getSnackBar(error.response.data.message)
+      snackbar.value = updateAlert(error.response.data.message)
     });
 }
 
@@ -58,7 +58,7 @@ const deleteUser = async(id,index) => {
       <h3>Users</h3>
     </div>
     <br/>
-    <PageLoader v-if="spinner" />
+    <PageLoader v-if="loader" />
     <div class="col-md-12 container elevation-4 users" v-else-if="users.length != 0">
                 <table class="table" style="background-color: #FFFFFF;">
                 <thead class="thead-dark">
