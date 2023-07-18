@@ -68,6 +68,11 @@ const router = createRouter({
       name: "updateCourier",
       component: () => import("./views/UpdateCourier.vue"),
     },
+    {
+      path: "/viewCourier/:id",
+      name: "viewCourier",
+      component: () => import("./views/ViewCourier.vue"),
+    },
   ],
 });
 
