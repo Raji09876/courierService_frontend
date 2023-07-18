@@ -3,7 +3,7 @@ import { onMounted, watch } from "vue";
 import { ref, toRaw } from "vue";
 import { useRouter } from "vue-router";
 import CustomerLocation from "../components/CustomerLocation.vue";
-import { getSnackBar } from "../utils";
+import { updateAlert } from "../utils";
 import CustomerServices from "../services/CustomerServices.js";
 import TextBox from "../components/TextBox.vue";
 import Alert from "../components/Alert.vue";
@@ -49,10 +49,10 @@ async function getCustomers() {
 }
 async function getCourierDetails() {
   if(courier.value.pickupFrom === "") {
-      snackbar.value = getSnackBar("Pickup Customer is empty!")
+      snackbar.value = updateAlert("Pickup Customer is empty!")
   }
   else if(courier.value.deliveryTo === "") {
-      snackbar.value = getSnackBar("Delivery Customer is empty!")
+      snackbar.value = updateAlert("Delivery Customer is empty!")
   }
   else {
     isPageLoader.value = true
@@ -64,13 +64,13 @@ async function getCourierDetails() {
       }
     await CourierServices.findDistance(body)
         .then((response) => {
-            snackbar.value = getSnackBar("courier details retrieved successfully!","green")
+            snackbar.value = updateAlert("courier details retrieved successfully!","green")
             isPageLoader.value = false
             courierDetailsRetrieved.value = response.data
         })
         .catch((error) => {
             console.log(error);
-            snackbar.value = getSnackBar(error.response.data.message)
+            snackbar.value = updateAlert(error.response.data.message)
             isPageLoader.value = false
         });
   }
@@ -85,15 +85,15 @@ async function addCourier() {
       deliveryLocation: "Street "+deliveryCustomerDetails.value.streetNumber + " Avenue "+deliveryCustomerDetails.value.avenue
 
     }
-    await CourierServices.addCourier({...courier.value,...otherFields})
+    await CourierServices.addCourier({...courier.value,...otherFields,clerkId: user.value.id})
         .then((response) => {
             isPageLoader.value = false
-            snackbar.value = getSnackBar("courier created successfully!","green")
+            snackbar.value = updateAlert("courier created successfully!","green")
             console.log("res",response)
         })
         .catch((error) => {
             console.log(error);
-            snackbar.value = getSnackBar(error.response.data.message)
+            snackbar.value = updateAlert(error.response.data.message)
             isPageLoader.value = false
         });
 }
