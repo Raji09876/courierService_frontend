@@ -128,7 +128,7 @@ function logout() {
     </v-navigation-drawer>
     <v-app-bar color='#1E73BE' app dark>
       <v-toolbar-title class="title" :style="{color:'#FFFFFF',cursor:'pointer'}" >
-        <a href="/">{{ title }}</a>
+        <a href="/courier-frontend">{{ title }}</a>
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn v-if="user === null" class="mx-2" :to="{ name: 'login' }">
