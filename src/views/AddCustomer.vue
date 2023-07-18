@@ -8,7 +8,7 @@ import PageLoader from "../components/PageLoader.vue";
 import TextBox from "../components/TextBox.vue";
 import StreetAndAvenue from "../components/StreetAndAvenue.vue";
 import Alert from "../components/Alert.vue";
-import { getSnackBar } from "../utils";
+import { updateAlert } from "../utils";
 
 const router = useRouter();
 const snackbar = ref({
@@ -36,33 +36,33 @@ const avenueArray = Array.from({ length: 8 }, (_, index) => String.fromCharCode(
 
 async function addCustomer() {
   if(customer.value.firstName === "") {
-      snackbar.value = getSnackBar("First Name is Empty")
+      snackbar.value = updateAlert("First Name is Empty")
   }
   else if(customer.value.lastName === "") {
-    snackbar.value = getSnackBar("Last name is empty")
+    snackbar.value = updateAlert("Last name is empty")
   }
   else if(customer.value.email === "") {
-    snackbar.value = getSnackBar("Email is empty")
+    snackbar.value = updateAlert("Email is empty")
   }
   else if(customer.value.phoneNumber === "") {
-    snackbar.value = getSnackBar("Mobile is empty")
+    snackbar.value = updateAlert("Mobile is empty")
   }
   else if(location.value.street === "") {
-    snackbar.value = getSnackBar("Street is empty")
+    snackbar.value = updateAlert("Street is empty")
   }
   else if(location.value.avenue === "") {
-    snackbar.value = getSnackBar("Avenue is empty")
+    snackbar.value = updateAlert("Avenue is empty")
   }
   else {
     isPageLoader.value = true
     await CustomerServices.addCustomer({...customer.value, streetNumber: location.value.street,avenue: location.value.avenue})
         .then((response) => {
-            snackbar.value = getSnackBar("Customer is created successfully!","green")
+            snackbar.value = updateAlert("Customer is created successfully!","green")
             isPageLoader.value = false
         })
         .catch((error) => {
             console.log(error);
-            snackbar.value = getSnackBar(error.response.data.message)
+            snackbar.value = updateAlert(error.response.data.message)
             isPageLoader.value = false
         });
   }
