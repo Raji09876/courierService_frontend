@@ -6,7 +6,7 @@ import CustomerServices from "../services/CustomerServices.js";
 import CourierServices from "../services/CourierServices.js";
 import PageLoader from "../components/PageLoader.vue";
 import Alert from "../components/Alert.vue";
-import { getSnackBar } from "../utils"
+import { updateAlert } from "../utils"
 import TextBox from "../components/TextBox.vue";
 import UserServices from "../services/UserServices.js";
 
@@ -21,7 +21,7 @@ const isPageLoader = ref(true);
 const user = ref(null);
 const couriers = ref([]);
 const customers = ref([]);
-const deliveryBoys = ref([]);
+const courierBoys = ref([]);
 onMounted(async () => {
   user.value = JSON.parse(localStorage.getItem("user"));
     if(!user.value) {
@@ -29,7 +29,7 @@ onMounted(async () => {
   }
   await getCourier();
   await getCustomers();
-  await getAvailableDeliveryBoys();
+  await getAvailableCourierBoys();
   isPageLoader.value = false;
 });
 const statusOptions =  [
@@ -51,18 +51,18 @@ async function getCourier() {
 
 async function updateCourier() {
     if(courier.value.status != 'PENDING' && !courier.value.delivery_boy_id) {
-        snackbar.value = getSnackBar("Assign the Delivery Boy to change the status!")
+        snackbar.value = updateAlert("Assign the Delivery Boy to change the status!")
         return;
     }
     isPageLoader.value = true
     await CourierServices.updateCourier({...courier.value,user_id: user.value.id})
         .then((response) => {
-            snackbar.value = getSnackBar("Courier is updated successfully!","green")
+            snackbar.value = updateAlert("Courier is updated successfully!","green")
             isPageLoader.value = false
         })
         .catch((error) => {
             console.log(error);
-            snackbar.value = getSnackBar(error.response.data.message)
+            snackbar.value = updateAlert(error.response.data.message)
             isPageLoader.value = false
         });
 }
@@ -77,10 +77,10 @@ async function getCustomers() {
     });
 }
 
-async function getAvailableDeliveryBoys() {
-  await UserServices.getAvailableDeliveryBoys()
+async function getAvailableCourierBoys() {
+  await UserServices.getAvailableCourierBoys()
     .then((response) => {
-      deliveryBoys.value = response.data;
+      courierBoys.value = response.data;
     })
     .catch((error) => {
       console.log(error);
@@ -138,7 +138,7 @@ async function getAvailableDeliveryBoys() {
           <div class="mb-3">
             <label for="user" class="form-label">Assign Delivery Boy</label>
             <select class="form-control" id="dropdown" v-model="courier.courierBoyId">
-              <option v-for="deliveryBoy in deliveryBoys" :key="deliveryBoy.id" :value="deliveryBoy.id"> {{deliveryBoy.lastName}} {{deliveryBoy.firstName}}</option>
+              <option v-for="courierBoy in courierBoys" :key="courierBoy.id" :value="courierBoy.id"> {{courierBoy.lastName}} {{courierBoy.firstName}}</option>
             </select>
         </div>
         </v-card-text>
