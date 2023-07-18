@@ -5,7 +5,7 @@ import { useRouter } from "vue-router";
 import UserServices from "../services/UserServices.js";
 import PageLoader from "../components/PageLoader.vue";
 import Alert from "../components/Alert.vue";
-import { getSnackBar } from "../utils"
+import { updateAlert } from "../utils"
 import TextBox from "../components/TextBox.vue"
 
 const router = useRouter();
@@ -59,36 +59,36 @@ async function getUser() {
 
 async function updateUser() {
       if(user.value.firstName === "") {
-        snackbar.value = getSnackBar("First Name is Empty")
+        snackbar.value = updateAlert("First Name is Empty")
     }
     else if(user.value.lastName === "") {
-        snackbar.value = getSnackBar("Last Name is Empty")
+        snackbar.value = updateAlert("Last Name is Empty")
     }
     else if(user.value.email === "") {
-           snackbar.value = getSnackBar("Email is Empty")
+           snackbar.value = updateAlert("Email is Empty")
     }
     else if(user.value.phoneNumber === "") {
-             snackbar.value = getSnackBar("Mobile is Empty")
+             snackbar.value = updateAlert("Mobile is Empty")
     }
     else if(user.value.password === "") {
-        snackbar.value = getSnackBar("Password is Empty")
+        snackbar.value = updateAlert("Password is Empty")
     }
     else if(user.value.apartment_number === "") {
-        snackbar.value = getSnackBar("Apartment Number is Empty")
+        snackbar.value = updateAlert("Apartment Number is Empty")
     }
     else if(user.value.role_id === "") {
-        snackbar.value = getSnackBar("Role is Empty")
+        snackbar.value = updateAlert("Role is Empty")
     }
     else {
         isPageLoader.value = true
         await UserServices.updateUser(user.value)
             .then((response) => {
-              snackbar.value = getSnackBar("User is Updated successfully!","green")
+              snackbar.value = updateAlert("User is Updated successfully!","green")
               isPageLoader.value = false
           })
           .catch((error) => {
               console.log(error);
-              snackbar.value = getSnackBar(error.response.data.message)
+              snackbar.value = updateAlert(error.response.data.message)
               isPageLoader.value = false
           });
     }
