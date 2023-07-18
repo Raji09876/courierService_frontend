@@ -5,11 +5,11 @@ import CustomerServices from "../services/CustomerServices.js";
 import { ref } from "vue";
 import PageLoader from "../components/PageLoader.vue";
 import Alert from "../components/Alert.vue";
-import { getSnackBar } from "../utils"
+import { updateAlert } from "../utils"
 
 
 const customers = ref([]);
-const spinner = ref(true);
+const loader = ref(true);
 const user = ref(null);
 const router = useRouter();
 const type = router.currentRoute.value.params.type
@@ -25,7 +25,7 @@ onMounted(async () => {
     router.push({ name: "login" });
   }
   await getCustomers();
-  spinner.value = false;
+  loader.value = false;
 });
 
 async function getCustomers() {
@@ -43,11 +43,11 @@ const deleteCustomer = async(id,index) => {
   await CustomerServices.deleteCustomer(id)
     .then((res) => {
       customers.value.splice(index, 1);
-      snackbar.value = getSnackBar("Customer is deleted successfully!","green")
+      snackbar.value = updateAlert("Customer is deleted successfully!","green")
     })
     .catch((error) => {
       console.log(error);
-      snackbar.value = getSnackBar(error.response.data.message)
+      snackbar.value = updateAlert(error.response.data.message)
     });
 }
 </script>
@@ -59,7 +59,7 @@ const deleteCustomer = async(id,index) => {
       <h3>Customers</h3>
     </div>
     <br/>
-    <PageLoader v-if="spinner" />
+    <PageLoader v-if="loader" />
     <div class="col-md-12 container elevation-4 customers" v-else-if="customers.length != 0">
              <table class="table" style="background-color: #FFFFFF;">
                 <thead class="thead-dark">
