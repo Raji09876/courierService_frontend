@@ -36,11 +36,11 @@ const routes = {
   },
   {
     path: "/couriers",
-    name: "Couriers"
+    name: "Delivery Requests"
   },
    {
     path: "/add-courier",
-    name: "Add courier"
+    name: "Add Delivery Request"
   },
   {
     path: "/customers",
@@ -52,7 +52,7 @@ const routes = {
   },
     {
     path: "/couriers/ordered-couriers/",
-    name: "My Couriers"
+    name: "My Delivery requests"
   }
   ],
   2:[
@@ -62,11 +62,11 @@ const routes = {
     },
     {
       path: "/couriers",
-      name: "Couriers"
+      name: "Delivery Requests"
     },
     {
     path: "/add-courier",
-    name: "Add courier"
+    name: "Add Delivery Request"
     },
     {
       path: "/customers",
@@ -78,7 +78,7 @@ const routes = {
     },
     {
       path: "/couriers/ordered-couriers/",
-      name: "My Couriers"
+      name: "My Delivery requests"
     }
     ],
   3: [
@@ -88,11 +88,11 @@ const routes = {
     },
     {
     path: "/couriers/my-current-courier",
-    name: "Current Courier"
+    name: "Current Delivery"
     },
     {
       path: "/couriers/delivered-couriers/",
-      name: "My Couriers"
+      name: "My Delivery requests"
     }
   ],
 }
