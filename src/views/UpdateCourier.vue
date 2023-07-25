@@ -94,7 +94,7 @@ async function getAvailableCourierBoys() {
     <div id="body">
       <v-card class="rounded-lg elevation-5">
         <div style="display:flex;" class="heading">
-          <v-card-title class="headline mb-2">Update Courier </v-card-title>
+          <v-card-title class="headline mb-2">Update Delivery </v-card-title>
         </div>
         <PageLoader v-if="isPageLoader" />
         <v-card-text v-else>

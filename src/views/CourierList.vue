@@ -69,7 +69,7 @@ const deleteCourier = async(id,index) => {
 <v-container>
   <div style="margin-top: 20px">
     <div style="display: flex; justify-content: center;">
-      <h3>Couriers</h3>
+      <h3>All Delivery Requests</h3>
     </div>
     <br/>
     <PageLoader v-if="loader" />

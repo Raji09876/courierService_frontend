@@ -36,11 +36,11 @@ const routes = {
   },
   {
     path: "/couriers",
-    name: "Delivery Requests"
+    name: "Deliveries"
   },
    {
     path: "/add-courier",
-    name: "Add Delivery Request"
+    name: "Add Delivery"
   },
   {
     path: "/customers",
@@ -52,7 +52,7 @@ const routes = {
   },
     {
     path: "/couriers/ordered-couriers/",
-    name: "My Delivery requests"
+    name: "My Delivery Requests"
   }
   ],
   2:[
@@ -62,11 +62,11 @@ const routes = {
     },
     {
       path: "/couriers",
-      name: "Delivery Requests"
+      name: "Deliveries"
     },
     {
     path: "/add-courier",
-    name: "Add Delivery Request"
+    name: "Add Delivery"
     },
     {
       path: "/customers",

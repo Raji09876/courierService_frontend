@@ -80,7 +80,7 @@ const delivered = async() => {
         <div class="flex">
             <table>
                 <tr>
-                <th>Courier Id</th>
+                <th>Delivery Id</th>
                 <td>{{ courier.id }}</td>
                 </tr>
                 <tr>
