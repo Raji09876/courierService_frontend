@@ -6,6 +6,7 @@ import { ref } from "vue";
 import PageLoader from "../components/PageLoader.vue";
 import Alert from "../components/Alert.vue";
 import { updateAlert } from "../utils"
+import html2pdf from 'html2pdf.js';
 
 
 // const courier = ref([]);
@@ -69,6 +70,95 @@ const delivered = async() => {
       snackbar.value = updateAlert(error.response.data.message)
     });
 }
+const download = () =>{
+  const temp_courier = courier.value
+      const html = `
+         <html>
+        <head>
+          <style>
+          table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+          }
+          table {
+              width: 80%;
+          }
+          td {
+              width: 80%;
+              padding: 10px;
+          }
+          th {
+              padding-left: 10px;
+          }
+          .flex {
+              display: flex;
+              justify-content: space-around;
+          }
+          </style>
+        </head>
+        <body>
+          <h4>Invoice</h4>
+          <div class="flex">
+        <table>
+                <tr>
+                <th>Delivery Id</th>
+                <td>${ temp_courier.id }</td>
+                </tr>
+                <tr>
+                <th>Status</th>
+                <td>${ temp_courier.status }</td>
+                </tr>
+                <tr>
+                <th>Price</th>
+                <td> $ ${ temp_courier.cost }</td>
+                </tr>
+                <tr>
+                 <th>Created At</th>
+                <td> ${ temp_courier.createdAt } </td>
+                </tr>
+                <tr>
+                 <th>Picked up At</th>
+                <td> ${ temp_courier.pickedupTime } </td>
+                </tr>
+                <tr>
+                 <th>Delivered At</th>
+                <td> ${ temp_courier.deliveredTime } </td>
+                </tr>
+                 <tr>
+                 <th>Pickup Details</th>
+                <td> 
+                    <p> Name - ${ temp_courier.pickup_from.firstName} ${ temp_courier.pickup_from.lastName} <br/>
+                     Email - ${ temp_courier.pickup_from.email} <br/>
+                     Contact - ${ temp_courier.pickup_from.phoneNumber} <br/>
+                     Address -  Street ${ temp_courier.pickup_from.streetNumber}, Avenue ${ temp_courier.pickup_from.avenue }  <br/>
+                     </p>
+                </td>
+                </tr>
+                <tr>
+                 <th>Delivery Details</th>
+                <td> 
+                    <p> Name - ${ temp_courier.delivery_to_customerDetails.firstName} ${ temp_courier.delivery_to_customerDetails.lastName} <br/>
+                     Email - ${ temp_courier.delivery_to_customerDetails.email} <br/>
+                     Contact - ${ temp_courier.delivery_to_customerDetails.phoneNumber} <br/>
+                     Address - Street ${ temp_courier.delivery_to_customerDetails.streetNumber}, Avenue ${ temp_courier.delivery_to_customerDetails.avenue } <br/>
+                     </p>
+                </td>
+                </tr>
+            </table>
+            </div>
+        </body>
+      </html>
+      `;
+
+      const options = {
+        margin: [10, 10],
+        filename: 'invoice.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+      };
+      html2pdf().from(html).set(options).save();
+}
 </script>
 
 <template>
@@ -102,6 +192,14 @@ const delivered = async() => {
                 <tr>
                 <th>Expected Time for Delivery </th>
                 <td> {{ courier.timeTakesForDelivery }} Minutes</td>
+                </tr>
+                <tr>
+                 <th>Pickup Location</th>
+                <td> {{ courier.pickupLocation }} </td>
+                </tr>
+                <tr>
+                 <th>Delivery Location</th>
+                <td> {{ courier.deliveryLocation }} </td>
                 </tr>
                 <tr>
                  <th>Created At</th>
@@ -157,6 +255,19 @@ const delivered = async() => {
                     </p>
                 </td>
                 </tr>
+                <tr v-if="courier.status == 'DELIVERED'">
+                <th>Invoice</th>
+                <td> 
+                  <button type="button" class="btn btn-secondary edit" @click="download()">Download Invoice</button>
+                </td>
+                </tr>
+                <tr v-if="courier.directions">
+                <th>Directions</th>
+                <td>
+                  <b>Pickup to Delivery Directions</b> <br/>
+                  <p>{{courier.directions.join('->')}}</p>
+                </td>
+                </tr>
             </table>
             <div v-if="user.role_id =='3' && !courier.deliveredTime ">
                 <div class="btn-group" role="group" aria-label="Basic example">
@@ -176,8 +287,8 @@ const delivered = async() => {
 <style scoped>
 
 table, th, td {
-  bcourier: 1px solid black;
-  bcourier-collapse: collapse;
+  border: 1px solid black;
+  border-collapse: collapse;
 }
 table {
     width: 80%;
