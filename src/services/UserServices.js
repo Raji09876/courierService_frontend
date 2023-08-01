@@ -29,7 +29,7 @@ export default {
     return apiClient.post("logout");
   },
   getAvailableCourierBoys(){
-    return apiClient.get("users/deliveryBoys");
+    return apiClient.get("users/available-delivery-boys");
   },
   getUsers() {
     return apiClient.get("users/")
