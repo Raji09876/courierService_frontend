@@ -81,8 +81,8 @@ async function addCourier() {
       distance: courierDetailsRetrieved.value.distance,
       timeTakesForDelivery: courierDetailsRetrieved.value.distance * 2,
       cost: courierDetailsRetrieved.value.distance * 10,
-      pickupLocation: "Street "+pickupCustomerDetails.value.streetNumber + " Avenue "+pickupCustomerDetails.value.avenue ,
-      deliveryLocation: "Street "+deliveryCustomerDetails.value.streetNumber + " Avenue "+deliveryCustomerDetails.value.avenue
+      pickupLocation: pickupCustomerDetails.value.streetNumber+pickupCustomerDetails.value.avenue ,
+      deliveryLocation: deliveryCustomerDetails.value.streetNumber+deliveryCustomerDetails.value.avenue
 
     }
     await CourierServices.addCourier({...courier.value,...otherFields,clerkId: user.value.id})
